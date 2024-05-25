@@ -45,8 +45,8 @@ public class CoordinateLabeler : MonoBehaviour
             return;
         }
 
-        coordinates.x = Mathf.RoundToInt(transform.parent.position.x / gridManager.unityGridSize);
-        coordinates.y = Mathf.RoundToInt(transform.parent.position.z / gridManager.unityGridSize);
+        coordinates.x = Mathf.RoundToInt(transform.parent.position.x / gridManager.UnityGridSize);
+        coordinates.y = Mathf.RoundToInt(transform.parent.position.z / gridManager.UnityGridSize);
 
         label.text = coordinates.x + "," + coordinates.y;
     }

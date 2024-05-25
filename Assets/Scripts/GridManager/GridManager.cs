@@ -6,8 +6,8 @@ public class GridManager : MonoBehaviour
 {
     [SerializeField] Vector2Int gridSize;
     [Tooltip("World Grid Size - Should match unityEditor Snap Settings")]
-    [SerializeField] int worldGridSize = 10;
-    public int unityGridSize { get { return unityGridSize; } }
+    [SerializeField] int unityGridSize = 10;
+    public int UnityGridSize { get { return unityGridSize; } }
     Dictionary<Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
     public Dictionary<Vector2Int, Node> Grid { get { return grid; } }
     void Awake()
@@ -29,6 +29,15 @@ public class GridManager : MonoBehaviour
             grid[coordinates].isWalkable = false;
         }
     }
+    public void ResetNode()
+    {
+        foreach (KeyValuePair<Vector2Int, Node> entry in grid)
+        {
+            entry.Value.connectedTo = null;
+            entry.Value.isExplored = false;
+            entry.Value.isPath = false;
+        }
+    }
     public Vector2Int GetCoordinatesFromPosition(Vector3 position)
     {
         Vector2Int coordinates = new Vector2Int();
@@ -41,7 +50,7 @@ public class GridManager : MonoBehaviour
     {
         Vector3 position = new Vector3();
         position.x = coordinates.x * unityGridSize;
-        position.y = coordinates.y * unityGridSize;
+        position.z = coordinates.y * unityGridSize;
         return position;
     }
     void CreateGrid()
