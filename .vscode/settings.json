@@ -52,5 +52,5 @@
         "Temp/": true
     },
     "dotnet.preferCSharpExtension": true,
-    "dotnet.defaultSolution": "Black March Studios.sln"
+    "dotnet.defaultSolution": "BlackMarchStudios.sln"
 }
