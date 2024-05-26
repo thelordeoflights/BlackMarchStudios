@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField][Range(0f, 5f)] float speed = 1f;
-
     List<Node> path = new List<Node>();
     [SerializeField] GridManager gridManager;
     [SerializeField] Pathfinder pathfinder;
