@@ -1,21 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-
-    [SerializeField] bool isPlaceable;
-    public bool IsPlaceable { get { return isPlaceable; } }
-
+    public bool isPlaceable;
+    public bool IsPlaceable { get { return isPlaceable; } set { isPlaceable = value; } }
+    public GameObject obsticlePrefab;
     GridManager gridManager;
-    Pathfinder pathfinder;
-    Vector2Int coordinates = new Vector2Int();
+
+    public Vector2Int coordinates = new Vector2Int();
 
     void Awake()
     {
         gridManager = FindObjectOfType<GridManager>();
-        pathfinder = FindObjectOfType<Pathfinder>();
     }
     void Start()
     {
@@ -29,25 +25,21 @@ public class Tile : MonoBehaviour
             }
         }
     }
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            RaycastHit raycastHit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out raycastHit, 100f))
-            {
-                if (Input.GetMouseButtonDown(1) && raycastHit.transform != null && raycastHit.transform == transform)
-                {
-                    if (gridManager.GetNode(coordinates).isWalkable && !pathfinder.WillBlockPath(coordinates))
-                    {
-                        isPlaceable = !isPlaceable;
-                        gridManager.BlockedNode(coordinates);
-                    }
-                }
+    // void Update()
+    // {
+    //     RaycastHit raycastHit;
+    //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //     if (Physics.Raycast(ray, out raycastHit, 100f))
+    //     {
+    //         if (raycastHit.transform != null && raycastHit.transform.CompareTag("Tile"))
+    //         {
+    //             if (Input.GetMouseButtonDown(1) && isPlaceable)
+    //             {
+    //                 Instantiate(obsticlePrefab, transform.position + offset, Quaternion.identity);
+    //             }
 
-            }
-        }
+    //         }
+    //     }
+    // }
 
-    }
 }

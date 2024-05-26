@@ -48,7 +48,6 @@ public class PlayerMover : MonoBehaviour
             pathfinder.StartCoordinates = temPosInt;
             Debug.Log(temPosInt);
         }
-        //gameObject.SetActive(false);
     }
 
     IEnumerator FollowPath()

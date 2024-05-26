@@ -10,10 +10,34 @@ public class GridManager : MonoBehaviour
     public int UnityGridSize { get { return unityGridSize; } }
     Dictionary<Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
     public Dictionary<Vector2Int, Node> Grid { get { return grid; } }
+    public Dictionary<Vector2Int, GameObject> Tiles = new Dictionary<Vector2Int, GameObject>();
+    [SerializeField] GameObject tilePrefab;
+    [SerializeField] GameObject obstaclePrefab;
+    [SerializeField] ObstacleManager obstacleManager;
+
     void Awake()
     {
         CreateGrid();
     }
+    public void PlaceObstacle(Vector2Int coordinates)
+    {
+        Node obstacleTile = GetNode(coordinates);
+        if (obstacleTile != null)
+        {
+            if (obstacleTile.isWalkable)
+            {
+                obstacleManager.Addobstacle(coordinates);
+                BlockedNode(coordinates);
+            }
+            else
+            {
+                obstacleManager.Removeobstacle(coordinates);
+                UnBlockedNode(coordinates);
+            }
+        }
+    }
+
+
     public Node GetNode(Vector2Int coordinates)
     {
         if (grid.ContainsKey(coordinates))
@@ -27,6 +51,13 @@ public class GridManager : MonoBehaviour
         if (grid.ContainsKey(coordinates))
         {
             grid[coordinates].isWalkable = false;
+        }
+    }
+    public void UnBlockedNode(Vector2Int coordinates)
+    {
+        if (grid.ContainsKey(coordinates))
+        {
+            grid[coordinates].isWalkable = true;
         }
     }
     public void ResetNode()
@@ -55,12 +86,16 @@ public class GridManager : MonoBehaviour
     }
     void CreateGrid()
     {
+
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
+                Vector3 tilePosition = new(x, 0, y);
                 Vector2Int coordinates = new Vector2Int(x, y);
                 grid.Add(coordinates, new Node(coordinates, true));
+                var tileGameObject = Instantiate(tilePrefab, tilePosition * unityGridSize, Quaternion.identity);
+                Tiles.Add(coordinates, tileGameObject);
             }
         }
     }
