@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PathFinderEnemy : MonoBehaviour
 {
+
     [SerializeField] Vector2Int startCoordinates;
     public Vector2Int StartCoordinates { get { return startCoordinates; } set { startCoordinates = value; SetStartNode(); } }
     Vector2Int destinationCoordinates;
@@ -28,6 +29,7 @@ public class PathFinderEnemy : MonoBehaviour
         {
             grid = gridManager.Grid;
             startNode = gridManager.Grid[startCoordinates];
+            destinationNode = gridManager.Grid[destinationCoordinates];
         }
     }
 

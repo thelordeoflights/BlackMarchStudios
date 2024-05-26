@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    [SerializeField] GameObject gridGameObject;
     [SerializeField] Vector2Int gridSize;
     [Tooltip("World Grid Size - Should match unityEditor Snap Settings")]
     [SerializeField] int unityGridSize = 10;
@@ -95,6 +96,8 @@ public class GridManager : MonoBehaviour
                 Vector2Int coordinates = new Vector2Int(x, y);
                 grid.Add(coordinates, new Node(coordinates, true));
                 var tileGameObject = Instantiate(tilePrefab, tilePosition * unityGridSize, Quaternion.identity);
+
+                tileGameObject.transform.parent = gridGameObject.transform;
                 Tiles.Add(coordinates, tileGameObject);
             }
         }

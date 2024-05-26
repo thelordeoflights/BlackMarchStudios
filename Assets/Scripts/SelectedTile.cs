@@ -10,6 +10,7 @@ public class SelectedTile : MonoBehaviour
     [SerializeField] GridManager gridManager;
     [SerializeField] Material defaultColor;
     [SerializeField] Material selectedColor;
+    [SerializeField] GameEvent playerMovedEvent;
     GameObject selectedTile;
     [SerializeField] TextMeshProUGUI textMeshProUGUI;
 
@@ -34,7 +35,7 @@ public class SelectedTile : MonoBehaviour
                     Vector2 destination = new Vector2(raycastHit.transform.position.x, raycastHit.transform.position.z);
                     Vector2Int des = Vector2Int.RoundToInt(destination) / 10;
                     pathfinder.StartFindingPath(des);
-
+                    playerMovedEvent.Event.Invoke(des);
                     playerMover.RecalculatePath(true);
                 }
                 else if (Input.GetMouseButtonUp(1))
