@@ -8,7 +8,7 @@ public class PlayerMover : MonoBehaviour
     List<Node> path = new List<Node>();
     [SerializeField] GridManager gridManager;
     [SerializeField] Pathfinder pathfinder;
-
+    [SerializeField] Rigidbody playerRigidbody;
     void Awake()
     {
         ReturnToStart();
